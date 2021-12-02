@@ -12,7 +12,7 @@ services:
       - alertmanager
     command:
       - --config.file=/etc/prometheus/prometheus.yml
-      - --alertmanager.url=http://alertmanager:9093
+      - -alertmanager.url=http://alertmanager:9093
 
   alertmanager:
     image: prom/alertmanager
@@ -30,7 +30,7 @@ services:
       - /sys:/host/sys
       - /:/rootfs
     command:
-      - --collector.procfs=/host/proc
+      - -collector.procfs=/host/proc
       - --collector.sysfs=/host/sys
       - --collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"
 
