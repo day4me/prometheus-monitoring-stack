@@ -37,7 +37,7 @@ services:
   promtail-loki:
     image: grafana/promtail:master
     volumes:
-      - $PWD/promtail:/etc/promtail
+      - ./config/prom-conf.yaml:/etc/promtail/config.yaml
       - /var/log:/var/log
     command:
       - -config.file=/etc/promtail/config.yaml
