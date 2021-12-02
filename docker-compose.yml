@@ -11,8 +11,8 @@ services:
       - node_exporter
       - alertmanager
     command:
-      - -config.file=/etc/prometheus/prometheus.yml
-      - -alertmanager.url=http://alertmanager:9093
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --alertmanager.url=http://alertmanager:9093
 
   alertmanager:
     image: prom/alertmanager
@@ -21,7 +21,7 @@ services:
     depends_on:
       - configuration_manager
     command:
-      - -config.file=/etc/alertmanager/alertmanager.yml
+      - --config.file=/etc/alertmanager/alertmanager.yml
 
   node_exporter:
     image: prom/node-exporter
@@ -30,9 +30,9 @@ services:
       - /sys:/host/sys
       - /:/rootfs
     command:
-      - -collector.procfs=/host/proc
-      - -collector.sysfs=/host/sys
-      - -collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"
+      - --collector.procfs=/host/proc
+      - --collector.sysfs=/host/sys
+      - --collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"
 
   promtail-loki:
     image: grafana/promtail:master
@@ -49,6 +49,7 @@ services:
       - ./config:/config
     entrypoint:
       - /bin/sh
+      - -c
     command:
       - sed "s,ALERT_SLACK_USERNAME,$ALERT_SLACK_USERNAME,g;
              s,ALERT_SLACK_CHANNEL,$ALERT_SLACK_CHANNEL,g;
