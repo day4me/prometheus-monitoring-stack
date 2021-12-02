@@ -49,7 +49,6 @@ services:
       - ./config:/config
     entrypoint:
       - /bin/sh
-      - -c
     command:
       - sed "s,ALERT_SLACK_USERNAME,$ALERT_SLACK_USERNAME,g;
              s,ALERT_SLACK_CHANNEL,$ALERT_SLACK_CHANNEL,g;
