@@ -1,17 +1,10 @@
-global:                                                                                                                                                                                                                  │
-  resolve_timeout: 5m                                                                                                                                                                                                    │
-receivers:                                                                                                                                                                                                               │
-- name: "null"                                                                                                                                                                                                           │
-route:                                                                                                                                                                                                                   │
-  group_by:                                                                                                                                                                                                              │
-  - job                                                                                                                                                                                                                  │
-  group_interval: 5m                                                                                                                                                                                                     │
-  group_wait: 30s                                                                                                                                                                                                        │
-  receiver: "null"                                                                                                                                                                                                       │
-  repeat_interval: 12h                                                                                                                                                                                                   │
-  routes:                                                                                                                                                                                                                │
-  - match:                                                                                                                                                                                                               │
-      alertname: Watchdog                                                                                                                                                                                                │
-    receiver: "null"                                                                                                                                                                                                     │
-templates:                                                                                                                                                                                                               │
-- /etc/alertmanager/config/*.tmpl
+route:
+  receiver: 'slack'
+
+receivers:
+  - name: 'slack'
+#       slack_configs:
+#           - send_resolved: true
+#             username: '<username>'
+#             channel: '#<channel-name>'
+#             api_url: '<incomming-webhook-url>'
