@@ -11,8 +11,11 @@ services:
       - node_exporter
       - alertmanager
     command:
-      - --config.file=/etc/prometheus/prometheus.yml
-      - -alertmanager.url=http://alertmanager:9093
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - 9090:9090
+    restart: always
+
 
   alertmanager:
     image: prom/alertmanager
@@ -21,7 +24,9 @@ services:
     depends_on:
       - configuration_manager
     command:
-      - --config.file=/etc/alertmanager/alertmanager.yml
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+    ports:
+      - 9093:9093
 
   node_exporter:
     image: prom/node-exporter
@@ -30,9 +35,14 @@ services:
       - /sys:/host/sys
       - /:/rootfs
     command:
-      - -collector.procfs=/host/proc
-      - --collector.sysfs=/host/sys
+      - '--collector.procfs=/host/proc'
+      - '--collector.sysfs=/host/sys'
       - --collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"
+    ports:
+      - 9100:9100
+    restart: always
+    deploy:
+      mode: global
 
   promtail-loki:
     image: grafana/promtail:master
@@ -41,6 +51,8 @@ services:
       - /var/log:/var/log
     command:
       - -config.file=/etc/promtail/config.yaml
+    ports:
+      - 3100:3100
   
   configuration_manager:
     image: busybox
