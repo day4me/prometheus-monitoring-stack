@@ -14,7 +14,8 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      job: HOSTNAME-varlogs
+      job: varlogs
+      host: HOSTNAME
       __path__: /var/log/*log
 
 - job_name: containers
@@ -22,7 +23,8 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      job: HOSTNAME-containerlogs
+      job: containerlogs
+      host: HOSTNAME
       __path__: /var/lib/docker/containers/*/*log
 
   pipeline_stages:
