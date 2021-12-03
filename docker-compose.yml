@@ -48,10 +48,12 @@ services:
       - ./config/prom-conf.yaml:/etc/promtail/config.yaml
       - /var/log:/var/log
       - /var/lib/docker/:/var/lib/docker:ro
+    logging:
+      driver: "json-file"
+      options: 
+        tag: "{{.Name}}"
     command:
       - -config.file=/etc/promtail/config.yaml
-      - '--log-driver json-file'
-      - '--log-opt tag="{{.Name}}"'
     ports:
       - 3100:3100
   
