@@ -47,8 +47,10 @@ services:
     volumes:
       - ./config/prom-conf.yaml:/etc/promtail/config.yaml
       - /var/log:/var/log
+      - /var/lib/docker/:/var/lib/docker:ro
     command:
       - -config.file=/etc/promtail/config.yaml
+      - '--log-driver json-file --log-opt tag="{{.Name}}"'
     ports:
       - 3100:3100
   
