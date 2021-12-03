@@ -7,6 +7,10 @@ services:
       - prometheus_data:/prometheus
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./config/alert.rules:/etc/prometheus/alert.rules
+    logging:
+      driver: "json-file"
+      options: 
+        tag: "{{.Name}}"  
     links:
       - node_exporter
       - alertmanager
@@ -21,6 +25,10 @@ services:
     image: prom/alertmanager
     volumes:
       - ./config/alertmanager.yml:/etc/alertmanager/config.yml
+    logging:
+      driver: "json-file"
+      options: 
+        tag: "{{.Name}}"  
     command:
       - '--config.file=/etc/alertmanager/config.yml'
     ports:
@@ -32,6 +40,10 @@ services:
       - /proc:/host/proc
       - /sys:/host/sys
       - /:/rootfs
+    logging:
+      driver: "json-file"
+      options: 
+        tag: "{{.Name}}"  
     command:
       - '--path.procfs=/host/proc' 
       - '--path.sysfs=/host/sys'
