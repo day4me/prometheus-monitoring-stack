@@ -16,3 +16,10 @@ scrape_configs:
     labels:
       job: apache-gcloud-varlogs
       __path__: /var/log/*.log
+- job_name: docker
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: apache-gcloud-docker-logs
+      __path__: /var/lib/docker/containers/*
