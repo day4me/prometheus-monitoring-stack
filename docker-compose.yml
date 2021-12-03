@@ -50,7 +50,8 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     command:
       - -config.file=/etc/promtail/config.yaml
-      - '--log-driver json-file --log-opt tag="{{.Name}}"'
+      - '--log-driver json-file'
+      - '--log-opt tag="{{.Name}}"'
     ports:
       - 3100:3100
   
